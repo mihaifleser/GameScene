@@ -48,6 +48,8 @@ GLfloat cameraRotateSpeed = 0.01f;
 
 GLboolean pressedKeys[1024];
 
+bool wireFrame = false;
+
 GLuint textureID;
 gps::SkyBox mySkyBox;
 gps::Shader skyboxShader;
@@ -214,6 +216,14 @@ void processMovement() {
         // update normal matrix for teapot
         normalMatrix = glm::mat3(glm::inverseTranspose(view*model));
     }
+
+    if (pressedKeys[GLFW_KEY_P]) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
+    }
+    if (pressedKeys[GLFW_KEY_O]) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
+
 }
 
 void initOpenGLWindow() {

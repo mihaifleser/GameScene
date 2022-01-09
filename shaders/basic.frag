@@ -23,11 +23,12 @@ float ambientStrength = 0.2f;
 vec3 diffuse;
 vec3 specular;
 float specularStrength = 0.5f;
+vec4 fPosEye;
 
 void computeDirLight()
 {
     //compute eye space coordinates
-    vec4 fPosEye = view * model * vec4(fPosition, 1.0f);
+    fPosEye = view * model * vec4(fPosition, 1.0f);
     vec3 normalEye = normalize(normalMatrix * fNormal);
 
     //normalize light direction
@@ -48,12 +49,27 @@ void computeDirLight()
     specular = specularStrength * specCoeff * lightColor;
 }
 
+float computeFog()
+{
+ float fogDensity = 0.05f;
+ float fragmentDistance = length(fPosEye);
+ float fogFactor = exp(-pow(fragmentDistance * fogDensity, 2));
+
+ return clamp(fogFactor, 0.0f, 1.0f);
+}
+
+
 void main() 
 {
     computeDirLight();
 
     //compute final vertex color
     vec3 color = min((ambient + diffuse) * texture(diffuseTexture, fTexCoords).rgb + specular * texture(specularTexture, fTexCoords).rgb, 1.0f);
+	fColor = vec4(color, 1.0f);
+	
+	float fogFactor = computeFog();
+	vec4 fogColor = vec4(0.5f, 0.5f, 0.5f, 1.0f);
+	fColor = mix(fogColor, fColor, fogFactor);
 
-    fColor = vec4(color, 1.0f);
+    
 }
