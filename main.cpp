@@ -151,6 +151,14 @@ void processMovement() {
         normalMatrix = glm::mat3(glm::inverseTranspose(view * model));
     }
 
+    if (glfwGetMouseButton(myWindow.getWindow(), GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS){
+        glfwSetInputMode(myWindow.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }
+
+    if (glfwGetMouseButton(myWindow.getWindow(), GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) {
+        glfwSetInputMode(myWindow.getWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
+
     if (pressedKeys[GLFW_KEY_RIGHT]) {
         myCamera.rotate(0, -cameraRotateSpeed);
         //update view matrix

@@ -1,11 +1,11 @@
 ﻿  main.cpp
-D:\Algoritmi fundamentali\Grafica\FinalProject\FinalProject\main.cpp(325,20): warning C4305: '-=': truncation from 'double' to 'float'
-D:\Algoritmi fundamentali\Grafica\FinalProject\FinalProject\main.cpp(327,31): warning C4305: '=': truncation from 'double' to 'float'
-D:\Algoritmi fundamentali\Grafica\FinalProject\FinalProject\main.cpp(329,30): warning C4305: '=': truncation from 'double' to 'float'
-D:\Algoritmi fundamentali\Grafica\FinalProject\FinalProject\main.cpp(339,32): warning C4305: '=': truncation from 'double' to 'float'
-D:\Algoritmi fundamentali\Grafica\FinalProject\FinalProject\main.cpp(341,31): warning C4305: '=': truncation from 'double' to 'float'
+D:\Algoritmi fundamentali\Grafica\FinalProject\FinalProject\main.cpp(333,20): warning C4305: '-=': truncation from 'double' to 'float'
+D:\Algoritmi fundamentali\Grafica\FinalProject\FinalProject\main.cpp(335,31): warning C4305: '=': truncation from 'double' to 'float'
+D:\Algoritmi fundamentali\Grafica\FinalProject\FinalProject\main.cpp(337,30): warning C4305: '=': truncation from 'double' to 'float'
+D:\Algoritmi fundamentali\Grafica\FinalProject\FinalProject\main.cpp(347,32): warning C4305: '=': truncation from 'double' to 'float'
+D:\Algoritmi fundamentali\Grafica\FinalProject\FinalProject\main.cpp(349,31): warning C4305: '=': truncation from 'double' to 'float'
   Generating code
-  3 of 1714 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  4 of 1714 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     13 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
