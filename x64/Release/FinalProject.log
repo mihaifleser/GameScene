@@ -1,9 +1,13 @@
 ﻿  main.cpp
-D:\Algoritmi fundamentali\Grafica\FinalProject\FinalProject\main.cpp(302,20): warning C4305: '-=': truncation from 'double' to 'float'
+D:\Algoritmi fundamentali\Grafica\FinalProject\FinalProject\main.cpp(325,20): warning C4305: '-=': truncation from 'double' to 'float'
+D:\Algoritmi fundamentali\Grafica\FinalProject\FinalProject\main.cpp(327,31): warning C4305: '=': truncation from 'double' to 'float'
+D:\Algoritmi fundamentali\Grafica\FinalProject\FinalProject\main.cpp(329,30): warning C4305: '=': truncation from 'double' to 'float'
+D:\Algoritmi fundamentali\Grafica\FinalProject\FinalProject\main.cpp(339,32): warning C4305: '=': truncation from 'double' to 'float'
+D:\Algoritmi fundamentali\Grafica\FinalProject\FinalProject\main.cpp(341,31): warning C4305: '=': truncation from 'double' to 'float'
   Generating code
-  4 of 1711 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  3 of 1714 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    15 functions had inline decision re-evaluated but remain unchanged
+    13 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
 LINK : warning LNK4286: symbol '__glewGenBuffers' defined in 'libglew32.lib(glew.obj)' is imported by 'Mesh.obj'
 LINK : warning LNK4286: symbol '__glewGenVertexArrays' defined in 'libglew32.lib(glew.obj)' is imported by 'Mesh.obj'
