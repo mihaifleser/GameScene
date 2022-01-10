@@ -35,6 +35,7 @@ GLint projectionLoc;
 GLint normalMatrixLoc;
 GLint lightDirLoc;
 GLint lightColorLoc;
+float birdsZ = 0.1f;
 
 // camera
 gps::Camera myCamera(
@@ -55,7 +56,7 @@ gps::SkyBox mySkyBox;
 gps::Shader skyboxShader;
 
 // models
-gps::Model3D teapot;
+gps::Model3D birds;
 gps::Model3D scene;
 GLfloat angle;
 
@@ -201,22 +202,6 @@ void processMovement() {
         normalMatrix = glm::mat3(glm::inverseTranspose(view*model));
 	}
 
-    if (pressedKeys[GLFW_KEY_Q]) {
-        angle -= 1.0f;
-        // update model matrix for teapot
-        model = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0, 1, 0));
-        // update normal matrix for teapot
-        normalMatrix = glm::mat3(glm::inverseTranspose(view*model));
-    }
-
-    if (pressedKeys[GLFW_KEY_E]) {
-        angle += 1.0f;
-        // update model matrix for teapot
-        model = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0, 1, 0));
-        // update normal matrix for teapot
-        normalMatrix = glm::mat3(glm::inverseTranspose(view*model));
-    }
-
     if (pressedKeys[GLFW_KEY_P]) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
     }
@@ -248,7 +233,7 @@ void initOpenGLState() {
 }
 
 void initModels() {
-    teapot.LoadModel("models/teapot/teapot20segUT.obj");
+    birds.LoadModel("models/birds/birds.obj");
     scene.LoadModel("models/scene/gameScene.obj");
 }
 
@@ -261,7 +246,7 @@ void initShaders() {
 void initUniforms() {
 	myBasicShader.useShaderProgram();
 
-    // create model matrix for teapot
+    // create model matrix for scene
     model = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f, 0.5f, 0.5f));
 	modelLoc = glGetUniformLocation(myBasicShader.shaderProgram, "model");
 
@@ -271,7 +256,7 @@ void initUniforms() {
 	// send view matrix to shader
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
-    // compute normal matrix for teapot
+    // compute normal matrix for scene
     normalMatrix = glm::mat3(glm::inverseTranspose(view*model));
 	normalMatrixLoc = glGetUniformLocation(myBasicShader.shaderProgram, "normalMatrix");
 
@@ -296,19 +281,31 @@ void initUniforms() {
 	glUniform3fv(lightColorLoc, 1, glm::value_ptr(lightColor));
 }
 
-void renderTeapot(gps::Shader shader) {
+void renderObjects(gps::Shader shader) {
     // select active shader program
     shader.useShaderProgram();
 
-    //send teapot model matrix data to shader
+    model = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f, 0.5f, 0.5f));
+    //send scene model matrix data to shader
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-    //send teapot normal matrix data to shader
+    //send scene normal matrix data to shader
     glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 
-    // draw teapot
-    teapot.Draw(shader);
+    // draw scene
     scene.Draw(shader);
+
+    model = glm::mat4(1.0f);
+    if (birdsZ < -15)
+        birdsZ = 0;
+    model = glm::translate(model, glm::vec3(0, 5, birdsZ)) * glm::scale(glm::mat4(1.0f), glm::vec3(0.5f, 0.5f, 0.5f));
+    birdsZ -= 0.007;
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+    shader.useShaderProgram();
+    //draw birds
+    birds.Draw(shader);
 }
 
 void renderScene() {
@@ -316,8 +313,9 @@ void renderScene() {
 
 	//render the scene
 
-	// render the teapot
-	renderTeapot(myBasicShader);
+	// render the objects
+	renderObjects(myBasicShader);
+    //render skybox
     mySkyBox.Draw(skyboxShader, view, projection);
 
 }
